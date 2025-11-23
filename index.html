@@ -30,7 +30,7 @@
         sans-serif;
       line-height: 1.6;
       color: var(--text);
-      background: var(--bg-light);
+      background: radial-gradient(circle at top left, #e5f0ff, #f5f7fb 40%, #f5f7fb);
     }
 
     a {
@@ -38,15 +38,17 @@
       color: inherit;
     }
 
-    /* Layout helpers */
     .container {
       width: 90%;
       max-width: var(--max-width);
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
     section {
       padding: 4rem 0;
+      position: relative;
     }
 
     h1, h2, h3 {
@@ -65,12 +67,13 @@
 
     /* Header / Nav */
     header {
-      background: var(--primary);
+      background: rgba(4, 59, 108, 0.96);
       color: var(--light);
       padding: 1rem 0;
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 20;
+      backdrop-filter: blur(10px);
     }
 
     .nav {
@@ -106,20 +109,42 @@
       text-decoration: underline;
     }
 
-    /* Hero */
+    /* HERO – premium banner */
     .hero {
-      background: linear-gradient(
-        135deg,
-        var(--primary),
-        #065a9b
-      );
+      position: relative;
       color: var(--light);
-      padding: 4rem 0 3.5rem;
+      padding: 4.5rem 0 3.5rem;
+      overflow: hidden;
+    }
+
+    /* Background image + overlay */
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(120deg, rgba(4,59,108,0.96), rgba(6,90,155,0.9)),
+        url("/mnt/data/bb85c10f-1bcd-4a8f-97ff-98bbf0f97442.png"); /* banner image */
+      background-size: cover;
+      background-position: center;
+      filter: saturate(1.1);
+      z-index: -2;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -120px;
+      top: -120px;
+      width: 360px;
+      height: 360px;
+      background: radial-gradient(circle, rgba(255,204,0,0.25), transparent 70%);
+      z-index: -1;
     }
 
     .hero-inner {
       display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
       align-items: center;
       gap: 2.5rem;
     }
@@ -131,7 +156,7 @@
     }
 
     .hero-highlight {
-      background: rgba(255, 204, 0, 0.1);
+      background: rgba(255, 255, 255, 0.08);
       border-left: 4px solid var(--accent);
       padding: 0.9rem 1rem;
       margin: 1rem 0 1.5rem;
@@ -147,9 +172,9 @@
     }
 
     .hero-stat {
-      background: rgba(0, 0, 0, 0.1);
-      border-radius: 0.5rem;
-      padding: 0.6rem 0.8rem;
+      background: rgba(0, 0, 0, 0.14);
+      border-radius: 999px;
+      padding: 0.6rem 0.9rem;
     }
 
     .btn-row {
@@ -200,10 +225,23 @@
     .hero-card {
       background: var(--light);
       color: var(--text);
-      border-radius: 1.2rem;
-      padding: 1.6rem 1.4rem;
-      max-width: 360px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+      border-radius: 1.4rem;
+      padding: 1.8rem 1.6rem;
+      max-width: 380px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+      position: relative;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      bottom: -30px;
+      right: -30px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(4,59,108,0.13), transparent);
+      z-index: -1;
     }
 
     .hero-card-header {
@@ -214,12 +252,13 @@
     }
 
     .profile-photo {
-      width: 68px;
-      height: 68px;
+      width: 70px;
+      height: 70px;
       border-radius: 50%;
       background: #ddd;
       overflow: hidden;
       flex-shrink: 0;
+      border: 3px solid rgba(4,59,108,0.2);
     }
 
     .profile-photo img {
@@ -237,7 +276,7 @@
     }
 
     .hero-card p {
-      font-size: 0.88rem;
+      font-size: 0.9rem;
     }
 
     /* About & Method */
@@ -286,9 +325,50 @@
       font-size: 0.9rem;
     }
 
-    /* Services */
+    .about-card {
+      background: #ffffff;
+      border-radius: 1.4rem;
+      padding: 1.5rem 1.4rem;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+      border: 1px solid rgba(4,59,108,0.06);
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .about-card-text {
+      font-size: 0.9rem;
+    }
+
+    .about-mini-photo {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid rgba(4,59,108,0.2);
+      flex-shrink: 0;
+    }
+
+    .about-mini-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* SERVICES */
     .services {
-      background: var(--light);
+      background: #ffffff;
+    }
+
+    .services::before {
+      content: "";
+      position: absolute;
+      left: -120px;
+      top: -80px;
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(4,59,108,0.07), transparent 70%);
+      z-index: 0;
     }
 
     .services-grid {
@@ -296,11 +376,13 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 1.5rem;
       margin-top: 1.5rem;
+      position: relative;
+      z-index: 1;
     }
 
     .service-card {
       background: #ffffff;
-      border-radius: 1rem;
+      border-radius: 1.2rem;
       padding: 1.4rem 1.3rem 1.5rem;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
       border: 1px solid rgba(4, 59, 108, 0.06);
@@ -312,9 +394,9 @@
 
     .service-header {
       display: flex;
-      justify-content: space-between;
-      align-items: baseline;
+      align-items: flex-start;
       gap: 0.75rem;
+      justify-content: space-between;
     }
 
     .service-title {
@@ -338,7 +420,26 @@
       color: var(--muted);
     }
 
-    /* Results */
+    /* Service icons */
+    .service-icon-wrapper {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: rgba(4,59,108,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .service-icon-wrapper img {
+      width: 70%;
+      height: 70%;
+      object-fit: contain;
+    }
+
+    /* RESULTS / STATS */
     .stats-row {
       display: flex;
       flex-wrap: wrap;
@@ -367,9 +468,62 @@
       color: var(--muted);
     }
 
-    /* Contact */
+    /* TESTIMONIALS WITH PHOTOS */
+    .testimonials {
+      background: linear-gradient(135deg, #ffffff, #eaf1ff);
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .testimonial-card {
+      background: #ffffff;
+      border-radius: 1.2rem;
+      padding: 1.4rem 1.3rem;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+      border: 1px solid rgba(4,59,108,0.06);
+      font-size: 0.9rem;
+    }
+
+    .testimonial-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .testimonial-photo {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #ddd;
+      flex-shrink: 0;
+    }
+
+    .testimonial-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .testimonial-name {
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .testimonial-role {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* CONTACT */
     .contact {
-      background: var(--primary);
+      background: radial-gradient(circle at top, #0760a8, #032a4d);
       color: var(--light);
       text-align: center;
     }
@@ -398,7 +552,7 @@
       margin-top: 0.75rem;
     }
 
-    /* Footer */
+    /* FOOTER */
     footer {
       background: #021d35;
       color: rgba(255, 255, 255, 0.85);
@@ -407,20 +561,23 @@
       font-size: 0.82rem;
     }
 
-    /* Responsive */
-    @media (max-width: 900px) {
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
       .hero-inner,
-      .two-column,
-      .services-grid {
+      .two-column {
         grid-template-columns: 1fr;
-      }
-
-      .hero-inner {
-        text-align: left;
       }
 
       .hero-side {
         justify-content: flex-start;
+        margin-top: 1.5rem;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .services-grid,
+      .testimonial-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
@@ -449,18 +606,15 @@
       }
     }
 
-    @media (max-width: 520px) {
+    @media (max-width: 620px) {
+      .services-grid,
+      .testimonial-grid {
+        grid-template-columns: 1fr;
+      }
+
       .btn-row {
         flex-direction: column;
         align-items: stretch;
-      }
-
-      .services-grid {
-        gap: 1rem;
-      }
-
-      .service-card {
-        padding: 1.1rem 1rem 1.2rem;
       }
     }
   </style>
@@ -477,12 +631,13 @@
         <a href="#about">About</a>
         <a href="#services">Services</a>
         <a href="#results">Results</a>
+        <a href="#testimonials">Testimonials</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
   </header>
 
-  <!-- Hero -->
+  <!-- HERO – premium banner -->
   <section class="hero">
     <div class="container hero-inner">
       <div>
@@ -498,7 +653,7 @@
         </div>
         <div class="hero-stats">
           <div class="hero-stat">✔ Psychology-based coaching</div>
-          <div class="hero-stat">✔ Practical, South African job market focus</div>
+          <div class="hero-stat">✔ Focus on the SA job market</div>
           <div class="hero-stat">✔ Online sessions – flexible & convenient</div>
         </div>
         <div class="btn-row">
@@ -520,27 +675,30 @@
         <div class="hero-card">
           <div class="hero-card-header">
             <div class="profile-photo">
-              <!-- Replace the src below with the path to your own photo -->
-              <!-- <img src="lungelwa-photo.jpg" alt="Lungelwa Msani" /> -->
+              <!-- MAIN PROFILE PHOTO -->
+              <img
+                src="/mnt/data/b4210fbb-f777-47de-b059-b195616c5dd5.png"
+                alt="Lungelwa Msani"
+              />
             </div>
             <div>
               <strong>Lungelwa Msani</strong>
-              <small>Career Strategist & HR Enthusiast</small>
+              <small>Career Strategist &amp; HR Enthusiast</small>
               <small>BA (Hons) Industrial Psychology</small>
             </div>
           </div>
           <p>
             “My method blends psychological insight with practical job search
-            strategies so you can communicate your value clearly and confidently.
-            Whether you’re a recent graduate or an experienced professional, I’ll
-            guide you step-by-step.”
+            strategies so you can communicate your value clearly and
+            confidently. Whether you’re a recent graduate or an experienced
+            professional, I’ll guide you step-by-step.”
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- About / Method -->
+  <!-- ABOUT / METHOD with extra profile card -->
   <section id="about">
     <div class="container two-column">
       <div>
@@ -551,9 +709,7 @@
           they lack skills, but because they don’t know how to position themselves.
           That’s where I come in.
         </p>
-        <p>
-          I help you:
-        </p>
+        <p>I help you:</p>
         <ul class="list">
           <li>Turn your CV into a clear, recruiter-friendly document.</li>
           <li>Transform your LinkedIn profile into a magnet for hiring managers.</li>
@@ -574,11 +730,26 @@
         <p class="muted">
           All sessions are online, so you can join from anywhere in South Africa.
         </p>
+
+        <!-- Second place where your profile appears -->
+        <div class="about-card">
+          <div class="about-mini-photo">
+            <img
+              src="/mnt/data/b4210fbb-f777-47de-b059-b195616c5dd5.png"
+              alt="Lungelwa Msani"
+            />
+          </div>
+          <div class="about-card-text">
+            “My goal is not just to help you ‘fix’ your CV, but to help you
+            understand your value and communicate it with confidence for the rest
+            of your career.”
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Services -->
+  <!-- SERVICES with icons -->
   <section id="services" class="services">
     <div class="container">
       <span class="pill">Services & Pricing</span>
@@ -589,10 +760,19 @@
       </p>
 
       <div class="services-grid">
+        <!-- SERVICE 1 -->
         <div class="service-card">
           <div>
             <div class="service-header">
-              <h3 class="service-title">CV Revamp + Cover Letter</h3>
+              <div style="display:flex; gap:0.7rem;">
+                <div class="service-icon-wrapper">
+                  <!-- Replace this with a CV icon of your choice -->
+                  <img src="/mnt/data/b4210fbb-f777-47de-b059-b195616c5dd5.png" alt="CV icon" />
+                </div>
+                <div>
+                  <h3 class="service-title">CV Revamp + Cover Letter</h3>
+                </div>
+              </div>
               <div class="price">R450</div>
             </div>
             <p>
@@ -606,10 +786,19 @@
           </div>
         </div>
 
+        <!-- SERVICE 2 -->
         <div class="service-card">
           <div>
             <div class="service-header">
-              <h3 class="service-title">Mock Interview Session</h3>
+              <div style="display:flex; gap:0.7rem;">
+                <div class="service-icon-wrapper">
+                  <!-- Replace with interview icon -->
+                  <img src="/mnt/data/b4210fbb-f777-47de-b059-b195616c5dd5.png" alt="Interview icon" />
+                </div>
+                <div>
+                  <h3 class="service-title">Mock Interview Session</h3>
+                </div>
+              </div>
               <div class="price">R600</div>
             </div>
             <p>
@@ -623,10 +812,19 @@
           </div>
         </div>
 
+        <!-- SERVICE 3 -->
         <div class="service-card">
           <div>
             <div class="service-header">
-              <h3 class="service-title">LinkedIn Profile Optimisation</h3>
+              <div style="display:flex; gap:0.7rem;">
+                <div class="service-icon-wrapper">
+                  <!-- Replace with LinkedIn icon -->
+                  <img src="/mnt/data/b4210fbb-f777-47de-b059-b195616c5dd5.png" alt="LinkedIn icon" />
+                </div>
+                <div>
+                  <h3 class="service-title">LinkedIn Profile Optimisation</h3>
+                </div>
+              </div>
               <div class="price">R500</div>
             </div>
             <p>
@@ -640,10 +838,19 @@
           </div>
         </div>
 
+        <!-- SERVICE 4 -->
         <div class="service-card">
           <div>
             <div class="service-header">
-              <h3 class="service-title">Job Search Strategy</h3>
+              <div style="display:flex; gap:0.7rem;">
+                <div class="service-icon-wrapper">
+                  <!-- Replace with search/strategy icon -->
+                  <img src="/mnt/data/b4210fbb-f777-47de-b059-b195616c5dd5.png" alt="Strategy icon" />
+                </div>
+                <div>
+                  <h3 class="service-title">Job Search Strategy</h3>
+                </div>
+              </div>
               <div class="price">R500</div>
             </div>
             <p>
@@ -657,10 +864,19 @@
           </div>
         </div>
 
+        <!-- SERVICE 5 -->
         <div class="service-card">
           <div>
             <div class="service-header">
-              <h3 class="service-title">1-on-1 Career Coaching</h3>
+              <div style="display:flex; gap:0.7rem;">
+                <div class="service-icon-wrapper">
+                  <!-- Replace with coaching icon -->
+                  <img src="/mnt/data/b4210fbb-f777-47de-b059-b195616c5dd5.png" alt="Coaching icon" />
+                </div>
+                <div>
+                  <h3 class="service-title">1-on-1 Career Coaching</h3>
+                </div>
+              </div>
               <div class="price">R600 / hour</div>
             </div>
             <p>
@@ -673,10 +889,19 @@
           </div>
         </div>
 
+        <!-- SERVICE 6 -->
         <div class="service-card">
           <div>
             <div class="service-header">
-              <h3 class="service-title">Bundle or Custom Support</h3>
+              <div style="display:flex; gap:0.7rem;">
+                <div class="service-icon-wrapper">
+                  <!-- Replace with bundle/custom icon -->
+                  <img src="/mnt/data/b4210fbb-f777-47de-b059-b195616c5dd5.png" alt="Bundle icon" />
+                </div>
+                <div>
+                  <h3 class="service-title">Bundle or Custom Support</h3>
+                </div>
+              </div>
             </div>
             <p>
               Need a combination of services (e.g. CV + LinkedIn + interview prep)?
@@ -692,7 +917,7 @@
     </div>
   </section>
 
-  <!-- Results -->
+  <!-- RESULTS -->
   <section id="results">
     <div class="container">
       <span class="pill">Results</span>
@@ -731,7 +956,74 @@
     </div>
   </section>
 
-  <!-- Contact -->
+  <!-- TESTIMONIALS with photos -->
+  <section id="testimonials" class="testimonials">
+    <div class="container">
+      <span class="pill">Client Stories</span>
+      <h2>Real People, Real Progress</h2>
+      <p>
+        Here’s what some of my clients have said after working together.
+        (You can later replace names, wording and photos with your real testimonials.)
+      </p>
+
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-photo">
+              <!-- CLIENT PHOTO 1 -->
+              <img src="/mnt/data/b4210fbb-f777-47de-b059-b195616c5dd5.png" alt="Client 1" />
+            </div>
+            <div>
+              <div class="testimonial-name">Ayanda M.</div>
+              <div class="testimonial-role">Recent Graduate</div>
+            </div>
+          </div>
+          <p>
+            “After Lungelwa revamped my CV and coached me for interviews, I landed
+            my first job in less than two months. I finally felt confident walking
+            into interviews.”
+          </p>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-photo">
+              <!-- CLIENT PHOTO 2 -->
+              <img src="/mnt/data/b4210fbb-f777-47de-b059-b195616c5dd5.png" alt="Client 2" />
+            </div>
+            <div>
+              <div class="testimonial-name">Thabo K.</div>
+              <div class="testimonial-role">Admin Professional</div>
+            </div>
+          </div>
+          <p>
+            “The LinkedIn optimisation and job search strategy gave me structure.
+            Recruiters started reaching out and I moved into a better-paying role.”
+          </p>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-photo">
+              <!-- CLIENT PHOTO 3 -->
+              <img src="/mnt/data/b4210fbb-f777-47de-b059-b195616c5dd5.png" alt="Client 3" />
+            </div>
+            <div>
+              <div class="testimonial-name">Nomsa D.</div>
+              <div class="testimonial-role">Career Changer</div>
+            </div>
+          </div>
+          <p>
+            “I felt stuck for years. The 1-on-1 coaching helped me understand my
+            strengths and pivot into a field that suits me. The support was
+            practical and encouraging.”
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
   <section id="contact" class="contact">
     <div class="container">
       <h2>Ready to Get Started?</h2>
@@ -775,7 +1067,6 @@
   </footer>
 
   <script>
-    // Set current year in footer
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
